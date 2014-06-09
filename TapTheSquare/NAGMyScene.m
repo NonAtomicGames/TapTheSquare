@@ -8,6 +8,7 @@
 
 #import "NAGMyScene.h"
 #import "GameKit/GameKit.h"
+#import "Flurry.h"
 
 #define TILE_HEIGHT 50
 #define TILE_WIDTH 50
@@ -107,6 +108,8 @@
 
             [self resetGameData];
             [self startGame];
+
+            [Flurry logEvent:@"Пользователь снова играет"];
         }
 
         if (self.firstScreenVisible) {
@@ -115,10 +118,13 @@
                 self.firstScreenVisible = NO;
                 [self startGame];
                 [self addChild:[self scoreLayer]];
+
+                [Flurry logEvent:@"Пользователь начал играть"];
             }
         } else if ([touchedNode.name isEqualToString:@"adTile"]) {
             if ([FlurryAds adReadyForSpace:@"GAME_VIEW"]) {
                 [FlurryAds displayAdForSpace:@"GAME_VIEW" onView:self.view];
+                [Flurry logEvent:@"Показалась реклама"];
             } else {
                 unsigned long winPoints = 2ul * self.cellPoints;
                 NSString *cellName = [NSString stringWithFormat:@"%@_%@",
@@ -135,6 +141,8 @@
                 [self animatePopupWithPoints:winPoints
                                   inPosition:pointInSKScene];
                 [touchedNode removeFromParent];
+
+                [Flurry logEvent:@"Пользователь нажал на тайл с рекламой"];
             }
         } else if ([touchedNode.name isEqualToString:@"clearTile"]) {
 //            добавляем пользователю баллы = кол-ву клеток на поле
@@ -151,6 +159,8 @@
 //            анимируем суммарный выигрыш пользователя
             [self animatePopupWithPoints:winPoints
                               inPosition:pointInSKScene];
+
+            [Flurry logEvent:@"Пользователь нажал на оранжевый тайл"];
         } else if ([touchedNode.name isEqualToString:@"failTile"]) {
 //            удаляем всплывшие очки, иначе они просто "заморозятся" при удалении действий с ноды
             [[self childNodeWithName:@"pointsLabel"] removeFromParent];
@@ -162,6 +172,8 @@
             touchedSkull.colorBlendFactor = 1.0;
 
             [self gameOver];
+
+            [Flurry logEvent:@"Пользователь нажал на тайл со склетом"];
         } else if ([touchedNode.name isEqualToString:@"standartTile"]) {
             self.score += self.cellPoints;
 
@@ -379,6 +391,8 @@
     [[NSRunLoop mainRunLoop]
                 addTimer:self.timer
                  forMode:NSDefaultRunLoopMode];
+
+    [Flurry logEvent:@"Пользователь перешел на следующий уровень"];
 }
 
 - (CGPoint)randomSquarePosition
@@ -619,10 +633,18 @@
 //                отправляем пользовательские очки в ГЦ
     GKScore *score = [GKScore new];
     score.value = self.score;
-    score.leaderboardIdentifier = @"scoreTable";
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        score.leaderboardIdentifier = @"iphone";
+    else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        score.leaderboardIdentifier = @"ipad";
+    else
+        score.leaderboardIdentifier = @"other";
 
     [GKScore reportScores:@[score]
-    withCompletionHandler:nil];
+    withCompletionHandler:^(NSError *){
+        [Flurry logEvent:@"Пользователь отправил счет в GameCenter"];
+    }];
 }
 
 #pragma mark - Device
