@@ -18,7 +18,7 @@
 {
     //    настраиваем окно с вопросом об оценке приложения
     [iRate sharedInstance].appStoreID = 884144338;
-    [iRate sharedInstance].applicationName = @"Tap The Square";
+    [iRate sharedInstance].applicationName = @"Pinky Square";
     [iRate sharedInstance].daysUntilPrompt = 0.1;
     [iRate sharedInstance].usesUntilPrompt = 2;
     [iRate sharedInstance].promptForNewVersionIfUserRated = YES;

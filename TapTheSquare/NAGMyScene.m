@@ -140,6 +140,7 @@
 
                 [self animatePopupWithPoints:winPoints
                                   inPosition:pointInSKScene];
+
                 [touchedNode removeFromParent];
 
                 [Flurry logEvent:@"Пользователь нажал на тайл с рекламой"];
@@ -642,7 +643,7 @@
         score.leaderboardIdentifier = @"other";
 
     [GKScore reportScores:@[score]
-    withCompletionHandler:^(NSError *){
+    withCompletionHandler:^(NSError *error){
         [Flurry logEvent:@"Пользователь отправил счет в GameCenter"];
     }];
 }

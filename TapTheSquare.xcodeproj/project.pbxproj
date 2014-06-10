@@ -164,6 +164,7 @@
 		1A9A0F78C44BF1F7387AF89F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1A9A0F961756CA9176E1A813 /* TapTheSquareTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TapTheSquareTests.m; sourceTree = "<group>"; };
 		1A9A0FCDF5BF557CD6C37F80 /* TapTheSquare-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "TapTheSquare-Info.plist"; sourceTree = "<group>"; };
+		D5B2CC8F1945C4550071B4C1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -932,6 +933,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1A9A028BA2D1D17BD12B546D /* en */,
+				D5B2CC8F1945C4550071B4C1 /* ru */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
