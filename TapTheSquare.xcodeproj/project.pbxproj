@@ -13,6 +13,7 @@
 		1A9A0134E56DA1E9E99DBA1E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A9A0B40DD25AB024A52D516 /* Localizable.strings */; };
 		1A9A0152B897B609ADBBEFF5 /* square@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9A0E0C9085C797D881A77E /* square@2x.png */; };
 		1A9A021F600CCF72E760E6EC /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A9A0732BC0FA2F3B58E75FB /* Main_iPad.storyboard */; };
+		1A9A0220C5D6C7EBCED8609A /* moves@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9A00FA9674F71BFE7F6D1A /* moves@2x.png */; };
 		1A9A0227A310179E8E0D0928 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A9A060F63A75367E7DA1CCE /* Localizable.strings */; };
 		1A9A02512C9595254278040B /* libFlurry_5.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9A0BF46992BEA040F38F8C /* libFlurry_5.0.0.a */; };
 		1A9A02D126157A6F90431ECB /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A0A856670897334C3BA91 /* iRate.m */; };
@@ -89,6 +90,7 @@
 /* Begin PBXFileReference section */
 		1A9A003F94618578D2BC496D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1A9A0062AC579B8CD483B0C2 /* NAGAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NAGAppDelegate.h; sourceTree = "<group>"; };
+		1A9A00FA9674F71BFE7F6D1A /* moves@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moves@2x.png"; sourceTree = "<group>"; };
 		1A9A00FE426B3AEE73381B2C /* vi */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = vi; path = Localizable.strings; sourceTree = "<group>"; };
 		1A9A014F6CE7DB3704B8E9B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		1A9A014FA09C70D2FF1B9980 /* ur-IN */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "ur-IN"; path = Localizable.strings; sourceTree = "<group>"; };
@@ -632,6 +634,7 @@
 				1A9A04428A88677F2681411E /* square_fail@2x.png */,
 				1A9A04C297387709FB6F5219 /* square_ad@2x.png */,
 				1A9A0953012660D4282269AA /* CooperBlackStd.otf */,
+				1A9A00FA9674F71BFE7F6D1A /* moves@2x.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -788,6 +791,7 @@
 				1A9A0F8B1FD149FFAE0D32A8 /* Localizable.strings in Resources */,
 				1A9A064FE33ED1BBF9C5E453 /* Localizable.strings in Resources */,
 				1A9A0A37B5D0BB07C4309CB0 /* CooperBlackStd.otf in Resources */,
+				1A9A0220C5D6C7EBCED8609A /* moves@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,6 +18,9 @@
 @property (nonatomic, getter=isGameOver) BOOL gameOverBool;
 @property (nonatomic, getter=isAdVisible) BOOL adVisible;
 
+// цвета изменяющегося фона
+@property NSArray *levelColors;
+
 // кол-во игры сыграных
 @property NSInteger gamesCount;
 
@@ -113,14 +116,14 @@
         }
 
         if (self.firstScreenVisible) {
-            if ([touchedNode.name isEqualToString:@"playButton"]) {
-                [touchedNode removeFromParent];
-                self.firstScreenVisible = NO;
-                [self startGame];
-                [self addChild:[self scoreLayer]];
-
-                [Flurry logEvent:@"Пользователь начал играть"];
-            }
+            SKNode *firstScreen = [self childNodeWithName:@"mainScreen"];
+            
+            [firstScreen removeFromParent];
+            self.firstScreenVisible = NO;
+            [self startGame];
+            [self addChild:[self scoreLayer]];
+            
+            [Flurry logEvent:@"Пользователь начал играть"];
         } else if ([touchedNode.name isEqualToString:@"adTile"]) {
             if ([FlurryAds adReadyForSpace:@"GAME_VIEW"]) {
                 [FlurryAds displayAdForSpace:@"GAME_VIEW" onView:self.view];
@@ -252,8 +255,19 @@
                          @0.1,
                          @0.08,
                          @0.06,
-                         @0.04,
-                         @0.02];
+                         @0.04];
+    self.levelColors = @[
+            [SKColor colorWithRed:0.388 green:0.259 blue:0.875 alpha:0],
+            [SKColor colorWithRed:0.67 green:0.262 blue:0.87 alpha:0],
+            [SKColor colorWithRed:0.87 green:0.862 blue:0.262 alpha:0],
+            [SKColor colorWithRed:0.87 green:0.443 blue:0.262 alpha:0],
+            [SKColor colorWithRed:0.4 green:0.87 blue:0.262 alpha:0],
+            [SKColor colorWithRed:0.262 green:0.87 blue:0.859 alpha:0],
+            [SKColor colorWithRed:0.262 green:0.361 blue:0.87 alpha:0],
+            [SKColor colorWithRed:0.87 green:0.757 blue:0.262 alpha:0],
+            [SKColor colorWithRed:0.36 green:0.019 blue:0.019 alpha:0],
+            [SKColor blackColor]
+    ];
 
     self.unusedCells = [NSMutableSet new];
     for (NSUInteger i = 0; i < [self fieldMaxCols]; i++) {
@@ -365,7 +379,11 @@
 
         if (self.nextTimerLevelIndex >= self.timerLevels.count - 1) {
             self.nextTimerLevelIndex = self.timerLevels.count - 1;
-        } else self.timerTimeLevelIndex = self.nextTimerLevelIndex;
+        } else {
+            self.timerTimeLevelIndex = self.nextTimerLevelIndex;
+
+            self.backgroundColor = self.levelColors[self.timerTimeLevelIndex];
+        }
     } else {
         self.timerTimeLevelIndex++;
     }
@@ -581,20 +599,29 @@
     NSLog(@"%s", __FUNCTION__);
 #endif
 
+    SKNode *layer = [SKNode node];
+    layer.name = @"mainScreen";
+
+    //    надпись
     SKLabelNode *playLabel = [SKLabelNode labelNodeWithFontNamed:@"Cooper Std"];
+    playLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    playLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
     playLabel.text = @"Tap me!";
     playLabel.fontSize = 37;
-    playLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
-    playLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-    playLabel.name = @"playButton";
-    playLabel
-            .position = CGPointMake([self screenWidth] / 2, [self screenHeight] / 2);
     playLabel.fontColor = [SKColor colorWithRed:0.435
                                           green:0.914
                                            blue:0.447
                                           alpha:1.0];
+    playLabel.position = CGPointMake([self screenWidth] / 2, [self screenHeight] / 2);
 
-    return playLabel;
+//  изображения с действиями
+    SKSpriteNode *moves = [SKSpriteNode spriteNodeWithImageNamed:@"moves"];
+    moves.position = CGPointMake([self screenWidth] / 2, playLabel.position.y / 2);
+
+    [layer addChild:moves];
+    [layer addChild:playLabel];
+
+    return layer;
 }
 
 - (SKNode *)scoreLayer
